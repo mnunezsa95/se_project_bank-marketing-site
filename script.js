@@ -1,5 +1,5 @@
 "use strict";
-import { modal, overlay, btnCloseModal, btnsOpenModal, btnScrollTo, section1, nav, tabs, tabsContainer, tabsContent } from "./constants.js";
+import { modal, overlay, btnCloseModal, btnsOpenModal, btnScrollTo, section1, nav, nav__links, tabs, tabsContainer, tabsContent } from "./constants.js";
 
 const openModal = function (evt) {
   evt.preventDefault();
@@ -25,8 +25,8 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
-// Page Navigation w/ Event Delegation
-document.querySelector(".nav__links").addEventListener("click", function (evt) {
+// Page navigation w/ event delegation
+nav__links.addEventListener("click", function (evt) {
   // Matching strategy (ensuring it will ONLY work when an actual nav__link element is clicked)
   if (evt.target.classList.contains("nav__link")) {
     evt.preventDefault();
@@ -35,7 +35,37 @@ document.querySelector(".nav__links").addEventListener("click", function (evt) {
   }
 });
 
-// Scrolling
+// Smooth scrolling
 btnScrollTo.addEventListener("click", function (e) {
   section1.scrollIntoView({ behavior: "smooth" });
 });
+
+// Tabbed component
+tabsContainer.addEventListener("click", function (evt) {
+  const clicked = evt.target.closest(".operations__tab");
+  if (!clicked) return; // guard clause
+  tabs.forEach((tab) => tab.classList.remove("operations__tab--active")); // removing active tab
+  tabsContent.forEach((tabsContent) => tabsContent.classList.remove("operations__content--active"));
+  clicked.classList.add("operations__tab--active");
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add("operations__content--active");
+});
+
+// function for handling hover
+const handleHover = function (evt) {
+  if (evt.target.classList.contains("nav__link") || evt.target.classList.contains("logo")) {
+    const link = evt.target;
+    const siblings = link.closest(".nav").querySelectorAll(".nav__link");
+    const logo = link.closest(".nav").querySelector("img");
+
+    siblings.forEach((siblingEl) => {
+      if (siblingEl !== link) {
+        siblingEl.style.opacity = this;
+      }
+      logo.style.opacity = this;
+    });
+  }
+};
+
+// Nav menu fade animation
+nav.addEventListener("mouseover", handleHover.bind(0.5));
+nav.addEventListener("mouseout", handleHover.bind(1));
