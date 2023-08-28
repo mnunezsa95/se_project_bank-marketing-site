@@ -1,5 +1,5 @@
 "use strict";
-import { modal, overlay, btnCloseModal, btnsOpenModal, btnScrollTo, section1 } from "./constants.js";
+import { modal, overlay, btnCloseModal, btnsOpenModal, btnScrollTo, section1, nav, tabs, tabsContainer, tabsContent } from "./constants.js";
 
 const openModal = function (evt) {
   evt.preventDefault();
@@ -25,8 +25,17 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
+// Page Navigation w/ Event Delegation
+document.querySelector(".nav__links").addEventListener("click", function (evt) {
+  // Matching strategy (ensuring it will ONLY work when an actual nav__link element is clicked)
+  if (evt.target.classList.contains("nav__link")) {
+    evt.preventDefault();
+    const id = evt.target.getAttribute("href");
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  }
+});
+
+// Scrolling
 btnScrollTo.addEventListener("click", function (e) {
-  const s1coords = section1.getBoundingClientRect();
-  //Scrolling Modern
   section1.scrollIntoView({ behavior: "smooth" });
 });
