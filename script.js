@@ -1,5 +1,5 @@
 "use strict";
-import { modal, overlay, btnCloseModal, btnsOpenModal, btnScrollTo, section1, nav, nav__links, tabs, tabsContainer, tabsContent } from "./constants.js";
+import { modal, overlay, btnCloseModal, btnsOpenModal, btnScrollTo, section1, nav, nav__links, tabs, tabsContainer, tabsContent, header } from "./constants.js";
 
 const openModal = function (evt) {
   evt.preventDefault();
@@ -69,3 +69,23 @@ const handleHover = function (evt) {
 // Nav menu fade animation
 nav.addEventListener("mouseover", handleHover.bind(0.5));
 nav.addEventListener("mouseout", handleHover.bind(1));
+
+// Sticky navigation
+const navHeight = nav.getBoundingClientRect().height;
+const stickyNav = function (entries) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) {
+    nav.classList.add("sticky");
+  } else {
+    nav.classList.remove("sticky");
+  }
+};
+
+const obsOptions = {
+  root: null,
+  threshold: [0],
+  rootMargin: `-${navHeight}px`,
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, obsOptions);
+headerObserver.observe(header);

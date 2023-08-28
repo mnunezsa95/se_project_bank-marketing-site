@@ -9,5 +9,6 @@ const nav__links = document.querySelector(".nav__links");
 const tabs = document.querySelectorAll(".operations__tab");
 const tabsContainer = document.querySelector(".operations__tab-container");
 const tabsContent = document.querySelectorAll(".operations__content");
+const header = document.querySelector(".header");
 
-export { modal, overlay, btnCloseModal, btnsOpenModal, btnScrollTo, section1, nav, nav__links, tabs, tabsContainer, tabsContent };
+export { modal, overlay, btnCloseModal, btnsOpenModal, btnScrollTo, section1, nav, nav__links, tabs, tabsContainer, tabsContent, header };
