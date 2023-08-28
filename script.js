@@ -1,5 +1,19 @@
 "use strict";
-import { modal, overlay, btnCloseModal, btnsOpenModal, btnScrollTo, section1, nav, nav__links, tabs, tabsContainer, tabsContent, header } from "./constants.js";
+import {
+  modal,
+  overlay,
+  btnCloseModal,
+  btnsOpenModal,
+  btnScrollTo,
+  section1,
+  nav,
+  nav__links,
+  tabs,
+  tabsContainer,
+  tabsContent,
+  header,
+  allSections,
+} from "./constants.js";
 
 const openModal = function (evt) {
   evt.preventDefault();
@@ -81,11 +95,29 @@ const stickyNav = function (entries) {
   }
 };
 
-const obsOptions = {
+const stickyObsOptions = {
   root: null,
   threshold: [0],
   rootMargin: `-${navHeight}px`,
 };
 
-const headerObserver = new IntersectionObserver(stickyNav, obsOptions);
+const headerObserver = new IntersectionObserver(stickyNav, stickyObsOptions);
 headerObserver.observe(header);
+
+// Revealing elements on scroll
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  const checkIntersection = !entry.isIntersecting ? null : entry.target.classList.remove("section--hidden");
+  observer.unobserve(checkIntersection.target);
+};
+
+const sectionObsOptions = {
+  root: null,
+  threshold: 0.15,
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, sectionObsOptions);
+allSections.forEach((section) => {
+  sectionObserver.observe(section);
+  section.classList.add("section--hidden");
+});
