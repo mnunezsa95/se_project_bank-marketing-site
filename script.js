@@ -14,6 +14,10 @@ import {
   header,
   allSections,
   imgTargets,
+  slides,
+  slider,
+  btnSliderRight,
+  btnSliderLeft,
 } from "./constants.js";
 
 const openModal = function (evt) {
@@ -127,7 +131,6 @@ allSections.forEach((section) => {
 // Lazy loading images
 const loadImage = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
   if (!entry.isIntersecting) return;
   entry.target.src = entry.target.dataset.src;
   entry.target.addEventListener("load", () => {
@@ -144,3 +147,34 @@ const imageObsOptions = {
 
 const imgObserver = new IntersectionObserver(loadImage, imageObsOptions);
 imgTargets.forEach((img) => imgObserver.observe(img));
+
+// Slider
+let currentSlide = 0;
+const maxNumberSlides = slides.length - 1;
+
+const goToSlide = (slide) => {
+  slides.forEach((s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`));
+};
+
+const nextSlide = () => {
+  if (currentSlide === maxNumberSlides) {
+    currentSlide = 0;
+  } else {
+    currentSlide++;
+  }
+  goToSlide(currentSlide);
+};
+
+const prevSlide = () => {
+  if (currentSlide === 0) {
+    currentSlide = maxNumberSlides;
+  } else {
+    currentSlide--;
+  }
+  goToSlide(currentSlide);
+};
+
+goToSlide(0);
+
+btnSliderRight.addEventListener("click", nextSlide);
+btnSliderLeft.addEventListener("click", prevSlide);

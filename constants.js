@@ -12,6 +12,10 @@ const tabsContent = document.querySelectorAll(".operations__content");
 const header = document.querySelector(".header");
 const allSections = document.querySelectorAll(".section");
 const imgTargets = document.querySelectorAll("img[data-src]");
+const slides = document.querySelectorAll(".slide");
+const slider = document.querySelector(".slider");
+const btnSliderRight = document.querySelector(".slider__btn--right");
+const btnSliderLeft = document.querySelector(".slider__btn--left");
 
 export {
   modal,
@@ -28,4 +32,8 @@ export {
   header,
   allSections,
   imgTargets,
+  slides,
+  slider,
+  btnSliderRight,
+  btnSliderLeft,
 };
