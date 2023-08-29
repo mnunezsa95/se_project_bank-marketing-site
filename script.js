@@ -13,6 +13,7 @@ import {
   tabsContent,
   header,
   allSections,
+  imgTargets,
 } from "./constants.js";
 
 const openModal = function (evt) {
@@ -107,8 +108,9 @@ headerObserver.observe(header);
 // Revealing elements on scroll
 const revealSection = function (entries, observer) {
   const [entry] = entries;
-  const checkIntersection = !entry.isIntersecting ? null : entry.target.classList.remove("section--hidden");
-  observer.unobserve(checkIntersection.target);
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove("section--hidden");
+  observer.unobserve(entry.target);
 };
 
 const sectionObsOptions = {
@@ -121,3 +123,24 @@ allSections.forEach((section) => {
   sectionObserver.observe(section);
   section.classList.add("section--hidden");
 });
+
+// Lazy loading images
+const loadImage = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) return;
+  entry.target.src = entry.target.dataset.src;
+  entry.target.addEventListener("load", () => {
+    entry.target.classList.remove("lazy-img");
+  });
+  observer.unobserve(entry.target);
+};
+
+const imageObsOptions = {
+  root: null,
+  threshold: 0,
+  rootMargin: `${navHeight}px`,
+};
+
+const imgObserver = new IntersectionObserver(loadImage, imageObsOptions);
+imgTargets.forEach((img) => imgObserver.observe(img));

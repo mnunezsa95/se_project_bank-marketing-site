@@ -11,5 +11,21 @@ const tabsContainer = document.querySelector(".operations__tab-container");
 const tabsContent = document.querySelectorAll(".operations__content");
 const header = document.querySelector(".header");
 const allSections = document.querySelectorAll(".section");
+const imgTargets = document.querySelectorAll("img[data-src]");
 
-export { modal, overlay, btnCloseModal, btnsOpenModal, btnScrollTo, section1, nav, nav__links, tabs, tabsContainer, tabsContent, header, allSections };
+export {
+  modal,
+  overlay,
+  btnCloseModal,
+  btnsOpenModal,
+  btnScrollTo,
+  section1,
+  nav,
+  nav__links,
+  tabs,
+  tabsContainer,
+  tabsContent,
+  header,
+  allSections,
+  imgTargets,
+};
