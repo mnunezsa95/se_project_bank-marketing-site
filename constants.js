@@ -13,9 +13,9 @@ const header = document.querySelector(".header");
 const allSections = document.querySelectorAll(".section");
 const imgTargets = document.querySelectorAll("img[data-src]");
 const slides = document.querySelectorAll(".slide");
-const slider = document.querySelector(".slider");
 const btnSliderRight = document.querySelector(".slider__btn--right");
 const btnSliderLeft = document.querySelector(".slider__btn--left");
+const dotsContainer = document.querySelector(".dots");
 
 export {
   modal,
@@ -33,7 +33,7 @@ export {
   allSections,
   imgTargets,
   slides,
-  slider,
   btnSliderRight,
   btnSliderLeft,
+  dotsContainer,
 };
