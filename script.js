@@ -109,6 +109,7 @@ const imageObsOptions = {
   threshold: 0,
   rootMargin: `${navHeight}px`,
 };
+console.log(imageObsOptions);
 
 const imgObserver = new IntersectionObserver(loadImage, imageObsOptions);
 imgTargets.forEach((img) => imgObserver.observe(img));
